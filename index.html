@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cardápio da Escola</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f8f2;
+            color: #333;
+        }
+
+        /* CABEÇALHO */
+
+        header {
+            background: linear-gradient(135deg, #2e7d32, #43a047);
+            color: white;
+
+            padding: 30px 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 15px;
+
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            font-size: 50px;
+        }
+
+        header h1 {
+            font-size: 32px;
+        }
+
+        header p {
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
+
+        /* CONTEÚDO */
+
+        main {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        .introducao {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .introducao h2 {
+            color: #2e7d32;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+
+        /* CARDÁPIO */
+
+        .cardapio {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 20px;
+        }
+
+        .dia {
+            background-color: white;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.10);
+
+            border-top: 6px solid #43a047;
+
+            transition: 0.2s;
+        }
+
+        .dia:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 8px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .dia > h2 {
+            color: #2e7d32;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+        }
+
+        .refeicao {
+            background-color: #f1f8e9;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-top: 12px;
+        }
+
+        .refeicao h3 {
+            color: #388e3c;
+
+            margin-bottom: 8px;
+        }
+
+        .refeicao p {
+            line-height: 1.5;
+        }
+
+
+        /* ÁREA DE ALERGIAS */
+
+        .alergias {
+            margin-top: 50px;
+
+            background-color: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.10);
+
+            border-left: 6px solid #ff9800;
+        }
+
+        .alergias h2 {
+            color: #e65100;
+
+            margin-bottom: 10px;
+        }
+
+        .alergias > p {
+            margin-bottom: 25px;
+
+            line-height: 1.5;
+        }
+
+
+        /* FORMULÁRIO */
+
+        form {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+
+            margin-top: 10px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        textarea {
+            min-height: 100px;
+
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+
+            border-color: #43a047;
+
+            box-shadow:
+                0 0 5px rgba(67, 160, 71, 0.3);
+        }
+
+
+        /* BOTÃO */
+
+        button {
+            margin-top: 15px;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background-color: #25D366;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background-color: #1ebe5d;
+
+            transform: scale(1.02);
+        }
+
+
+        /* MENSAGEM */
+
+        #mensagem {
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            display: none;
+        }
+
+
+        /* AVISO */
+
+        .aviso {
+            margin-top: 20px;
+
+            padding: 15px;
+
+            background: #fff3cd;
+
+            border-radius: 8px;
+
+            color: #856404;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        /* RODAPÉ */
+
+        footer {
+            margin-top: 50px;
+
+            background-color: #2e7d32;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 20px;
+        }
+
+
+        /* CELULAR */
+
+        @media (max-width: 600px) {
+
+            header {
+                flex-direction: column;
+
+                text-align: center;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            main {
+                width: 94%;
+            }
+
+            .alergias {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- CABEÇALHO -->
+
+    <header>
+
+        <div class="logo">
+            🍎
+        </div>
+
+        <div>
+
+            <h1>
+                Cardápio da Escola
+            </h1>
+
+            <p>
+                Confira as refeições da semana
+            </p>
+
+        </div>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- INTRODUÇÃO -->
+
+        <section class="introducao">
+
+            <h2>
+                🍽️ Cardápio da Semana
+            </h2>
+
+            <p>
+                Confira o que será servido na escola durante a semana.
+            </p>
+
+        </section>
+
+
+
+        <!-- CARDÁPIO -->
+
+        <section class="cardapio">
+
+
+            <!-- SEGUNDA -->
+
+            <div class="dia">
+
+                <h2>
+                    Segunda-feira
+                </h2>
+
+                <div class="refeicao">
+
+                    <h3>
+                        🌅 Lanche da manhã
+                    </h3>
+
+                    <p>
+                        Peta com café.
+                    </p>
+
+                </div>
+
+                <div class="refeicao">
+
+                    <h3>
+                        🍛 Almoço
+                    </h3>
+
+                    <p>
+                        Arroz, feijão, carne de boi cozida,
+                        salada e suco.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TERÇA -->
+
+            <div class="dia">
+
+                <h2>
+                    Terça-feira
+                </h2>
+
+                <div class="refeicao">
+
+                    <h3>
+                        🌅 Lanche da manhã
+                    </h3>
+
+                    <p>
+                        Cuscuz com carne moída.
+                    </p>
+
+                </div>
+
+                <div class="refeicao">
+
+                    <h3>
+                        🍛 Almoço
+                    </h3>
+
+                    <p>
+                        Baião de dois, carne de boi frita,
+                        salada e suco.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QUARTA -->
+
+            <div class="dia">
+
+                <h2>
+                    Quarta-feira
+                </h2>
+
+                <div class="refeicao">
+
+                    <h3>
+                        🌅 Lanche da manhã
+                    </h3>
+
+                    <p>
+                        Sopa de frango.
+                    </p>
+
+                </div>
+
+                <div class="refeicao">
+
+                    <h3>
+                        🍛 Almoço
+                    </h3>
+
+                    <p>
+                        Arroz, feijão, macarrão,
+                        salada e suco.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QUINTA -->
+
+            <div class="dia">
+
+                <h2>
+                    Quinta-feira
+                </h2>
+
+                <div class="refeicao">
+
+                    <h3>
+                        🌅 Lanche da manhã
+                    </h3>
+
+                    <p>
+                        Pão com carne moída e café.
+                    </p>
+
+                </div>
+
+                <div class="refeicao">
+
+                    <h3>
+                        🍛 Almoço
+                    </h3>
+
+                    <p>
+                        Feijoada, arroz,
+                        salada e laranja.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SEXTA -->
+
+            <div class="dia">
+
+                <h2>
+                    Sexta-feira
+                </h2>
+
+                <div class="refeicao">
+
+                    <h3>
+                        🌅 Lanche da manhã
+                    </h3>
+
+                    <p>
+                        Cuscuz com ovo.
+                    </p>
+
+                </div>
+
+                <div class="refeicao">
+
+                    <h3>
+                        🍛 Almoço
+                    </h3>
+
+                    <p>
+                        Arroz, strogonoff e salada.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ÁREA DE ALERGIAS -->
+
+        <section class="alergias">
+
+            <h2>
+                ⚠️ Alergias e alimentos que você não come
+            </h2>
+
+            <p>
+                Preencha as informações abaixo.
+                Elas serão colocadas automaticamente
+                em uma mensagem para a direção da escola.
+            </p>
+
+
+            <form id="formulario">
+
+
+                <!-- NOME -->
+
+                <label for="nome">
+
+                    Seu nome:
+
+                </label>
+
+                <input
+                    type="text"
+                    id="nome"
+                    placeholder="Digite seu nome"
+                    required
+                >
+
+
+
+                <!-- ALERGIAS -->
+
+                <label for="alergias">
+
+                    Tenho alergia a:
+
+                </label>
+
+                <textarea
+                    id="alergias"
+                    placeholder="Ex.: leite, ovo, amendoim..."
+                ></textarea>
+
+
+
+                <!-- ALIMENTOS QUE NÃO COME -->
+
+                <label for="naoCome">
+
+                    Não como:
+
+                </label>
+
+                <textarea
+                    id="naoCome"
+                    placeholder="Ex.: carne de boi, feijão..."
+                ></textarea>
+
+
+
+                <!-- BOTÃO -->
+
+                <button type="submit">
+
+                    📱 Enviar informações para a direção
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- MENSAGEM -->
+
+            <div id="mensagem"></div>
+
+
+
+            <!-- AVISO -->
+
+            <div class="aviso">
+
+                ℹ️ Ao clicar no botão, o WhatsApp será aberto
+                com uma mensagem contendo as informações
+                preenchidas. Confira a mensagem e toque em
+                <strong>Enviar</strong> no WhatsApp.
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- RODAPÉ -->
+
+    <footer>
+
+        <p>
+            🍎 Cardápio da Escola © 2026
+        </p>
+
+    </footer>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        const formulario =
+            document.getElementById("formulario");
+
+        const mensagem =
+            document.getElementById("mensagem");
+
+
+        formulario.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                // PEGAR INFORMAÇÕES
+
+                const nome =
+                    document
+                    .getElementById("nome")
+                    .value
+                    .trim();
+
+
+                const alergias =
+                    document
+                    .getElementById("alergias")
+                    .value
+                    .trim();
+
+
+                const naoCome =
+                    document
+                    .getElementById("naoCome")
+                    .value
+                    .trim();
+
+
+
+                // VERIFICAR SE O NOME FOI PREENCHIDO
+
+                if (nome === "") {
+
+                    alert(
+                        "Por favor, informe seu nome."
+                    );
+
+                    return;
+
+                }
+
+
+
+                // CASO NÃO TENHA ALERGIA
+
+                const textoAlergia =
+                    alergias !== ""
+                    ? alergias
+                    : "Nenhuma informada";
+
+
+                // CASO NÃO TENHA ALIMENTO
+
+                const textoNaoCome =
+                    naoCome !== ""
+                    ? naoCome
+                    : "Nenhum informado";
+
+
+
+                // MENSAGEM QUE SERÁ ENVIADA
+
+                const textoMensagem =
+
+`Olá, direção da escola! 👋
+
+Gostaria de informar os dados alimentares de um aluno.
+
+👤 Nome: ${nome}
+
+⚠️ Alergias alimentares:
+${textoAlergia}
+
+🚫 Alimentos que não come:
+${textoNaoCome}
+
+Estou enviando essas informações para que a escola possa ficar ciente das necessidades alimentares do aluno.
+
+Obrigado! 🍎`;
+
+
+
+                // NÚMERO DA DIREÇÃO
+
+                const telefone =
+                    "5589981089534";
+
+
+
+                // TRANSFORMAR A MENSAGEM
+                // EM FORMATO PARA URL
+
+                const mensagemCodificada =
+                    encodeURIComponent(
+                        textoMensagem
+                    );
+
+
+
+                // CRIAR LINK DO WHATSAPP
+
+                const linkWhatsapp =
+                    `https://wa.me/${telefone}?text=${mensagemCodificada}`;
+
+
+
+                // SALVAR NO NAVEGADOR
+
+                localStorage.setItem(
+                    "nome",
+                    nome
+                );
+
+                localStorage.setItem(
+                    "alergias",
+                    alergias
+                );
+
+                localStorage.setItem(
+                    "naoCome",
+                    naoCome
+                );
+
+
+
+                // MOSTRAR MENSAGEM
+
+                mensagem.style.display =
+                    "block";
+
+                mensagem.style.backgroundColor =
+                    "#e8f5e9";
+
+                mensagem.style.color =
+                    "#2e7d32";
+
+                mensagem.innerHTML =
+
+                    "✅ Informações preparadas! " +
+                    "O WhatsApp será aberto agora.";
+
+
+
+                // ABRIR WHATSAPP
+
+                window.open(
+                    linkWhatsapp,
+                    "_blank"
+                );
+
+            }
+        );
+
+
+
+        // RECUPERAR DADOS SALVOS
+
+        window.addEventListener(
+            "load",
+            function() {
+
+
+                const nomeSalvo =
+                    localStorage.getItem(
+                        "nome"
+                    );
+
+
+                const alergiasSalvas =
+                    localStorage.getItem(
+                        "alergias"
+                    );
+
+
+                const naoComeSalvo =
+                    localStorage.getItem(
+                        "naoCome"
+                    );
+
+
+
+                if (nomeSalvo) {
+
+                    document
+                        .getElementById("nome")
+                        .value =
+                        nomeSalvo;
+
+                }
+
+
+                if (alergiasSalvas) {
+
+                    document
+                        .getElementById("alergias")
+                        .value =
+                        alergiasSalvas;
+
+                }
+
+
+                if (naoComeSalvo) {
+
+                    document
+                        .getElementById("naoCome")
+                        .value =
+                        naoComeSalvo;
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>
